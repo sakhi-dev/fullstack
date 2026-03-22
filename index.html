@@ -1,41 +1,1188 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <title>Abdou Fatah | CV JavaFX</title>
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PropreNet Tours – Nettoyage Professionnel à Tours</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<style>
+  :root {
+    --navy: #0a1628;
+    --blue: #1a4480;
+    --sky: #4a9eff;
+    --aqua: #00d4c8;
+    --cream: #f8f5f0;
+    --white: #ffffff;
+    --gold: #e8b84b;
+    --gray: #8a9bb0;
+    --light: #eef3f9;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--navy);
+    overflow-x: hidden;
+  }
+
+  /* ── NAVBAR ── */
+  nav {
+    position: fixed; top: 0; width: 100%; z-index: 1000;
+    padding: 1rem 5%;
+    display: flex; justify-content: space-between; align-items: center;
+    background: rgba(10, 22, 40, 0.92);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(74, 158, 255, 0.15);
+    transition: all .4s;
+  }
+  .nav-logo {
+    display: flex; align-items: center; gap: .7rem;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem; font-weight: 900; color: var(--white);
+    text-decoration: none;
+  }
+  .nav-logo span { color: var(--aqua); }
+  .logo-icon {
+    width: 40px; height: 40px; background: linear-gradient(135deg, var(--sky), var(--aqua));
+    border-radius: 10px; display: flex; align-items: center; justify-content: center;
+    font-size: 1.2rem;
+  }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    color: rgba(255,255,255,.75); text-decoration: none;
+    font-size: .9rem; font-weight: 500; letter-spacing: .04em;
+    transition: color .3s; position: relative;
+  }
+  .nav-links a::after {
+    content: ''; position: absolute; bottom: -4px; left: 0;
+    width: 0; height: 2px; background: var(--aqua); transition: width .3s;
+  }
+  .nav-links a:hover { color: var(--aqua); }
+  .nav-links a:hover::after { width: 100%; }
+  .nav-cta {
+    background: linear-gradient(135deg, var(--sky), var(--aqua));
+    color: var(--white) !important; padding: .5rem 1.4rem;
+    border-radius: 50px; font-weight: 600 !important;
+  }
+  .nav-cta::after { display: none !important; }
+  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+  .hamburger span { width: 25px; height: 2px; background: white; border-radius: 2px; transition: .3s; }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh;
+    background: linear-gradient(135deg, var(--navy) 0%, #0d2347 50%, #122d56 100%);
+    position: relative; overflow: hidden;
+    display: flex; align-items: center;
+    padding: 0 5%;
+  }
+  .hero-bubbles { position: absolute; inset: 0; pointer-events: none; }
+  .bubble {
+    position: absolute; border-radius: 50%;
+    background: radial-gradient(circle, rgba(74,158,255,.15), transparent);
+    animation: float 6s ease-in-out infinite;
+  }
+  .bubble:nth-child(1) { width:400px;height:400px;top:-100px;right:-100px;animation-delay:0s; }
+  .bubble:nth-child(2) { width:250px;height:250px;bottom:10%;left:5%;animation-delay:2s; }
+  .bubble:nth-child(3) { width:180px;height:180px;top:40%;right:20%;animation-delay:4s;background:radial-gradient(circle,rgba(0,212,200,.12),transparent); }
+  @keyframes float { 0%,100%{transform:translateY(0)}50%{transform:translateY(-20px)} }
+
+  .grid-lines {
+    position: absolute; inset: 0;
+    background-image: linear-gradient(rgba(74,158,255,.04) 1px, transparent 1px),
+                      linear-gradient(90deg, rgba(74,158,255,.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+  .hero-content { position: relative; z-index: 2; max-width: 680px; }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: .5rem;
+    background: rgba(0,212,200,.12); border: 1px solid rgba(0,212,200,.3);
+    color: var(--aqua); padding: .4rem 1rem; border-radius: 50px;
+    font-size: .8rem; font-weight: 600; letter-spacing: .08em;
+    text-transform: uppercase; margin-bottom: 1.5rem;
+    animation: fadeUp .8s ease both;
+  }
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.8rem, 6vw, 5rem);
+    font-weight: 900; color: var(--white); line-height: 1.1;
+    margin-bottom: 1.5rem;
+    animation: fadeUp .8s .2s ease both;
+  }
+  .hero-title em { color: var(--aqua); font-style: normal; }
+  .hero-subtitle {
+    font-size: 1.1rem; color: rgba(255,255,255,.65); line-height: 1.7;
+    margin-bottom: 2.5rem; max-width: 520px;
+    animation: fadeUp .8s .4s ease both;
+  }
+  .hero-buttons { display: flex; gap: 1rem; flex-wrap: wrap; animation: fadeUp .8s .6s ease both; }
+  .btn-primary {
+    background: linear-gradient(135deg, var(--sky), var(--aqua));
+    color: white; padding: .9rem 2rem; border-radius: 50px;
+    text-decoration: none; font-weight: 600; font-size: 1rem;
+    box-shadow: 0 8px 30px rgba(74,158,255,.4);
+    transition: transform .3s, box-shadow .3s;
+    display: inline-flex; align-items: center; gap: .5rem;
+  }
+  .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 12px 40px rgba(74,158,255,.5); }
+  .btn-secondary {
+    border: 2px solid rgba(255,255,255,.3); color: white;
+    padding: .9rem 2rem; border-radius: 50px;
+    text-decoration: none; font-weight: 600;
+    transition: all .3s; display: inline-flex; align-items: center; gap: .5rem;
+  }
+  .btn-secondary:hover { border-color: var(--aqua); color: var(--aqua); }
+
+  .hero-stats {
+    display: flex; gap: 2.5rem; margin-top: 3rem;
+    animation: fadeUp .8s .8s ease both;
+  }
+  .stat { text-align: center; }
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2rem; font-weight: 900; color: var(--aqua);
+  }
+  .stat-label { font-size: .8rem; color: rgba(255,255,255,.5); letter-spacing: .05em; text-transform: uppercase; }
+
+  .hero-image {
+    position: absolute; right: 5%; bottom: 0; width: 45%; max-width: 620px;
+    animation: fadeUp .8s .5s ease both;
+  }
+  .hero-image img {
+    width: 100%; border-radius: 20px 20px 0 0;
+    object-fit: cover; height: 480px;
+    box-shadow: -20px -20px 60px rgba(0,0,0,.4);
+  }
+  .hero-image-badge {
+    position: absolute; top: 30px; left: -20px;
+    background: white; border-radius: 16px; padding: 1rem 1.3rem;
+    box-shadow: 0 15px 40px rgba(0,0,0,.2);
+    display: flex; align-items: center; gap: .8rem;
+  }
+  .badge-stars { color: var(--gold); font-size: 1rem; }
+  .badge-text strong { display: block; font-size: .95rem; color: var(--navy); }
+  .badge-text small { color: var(--gray); font-size: .75rem; }
+
+  @keyframes fadeUp { from{opacity:0;transform:translateY(30px)} to{opacity:1;transform:translateY(0)} }
+
+  /* ── SECTIONS ── */
+  section { padding: 6rem 5%; }
+  .section-tag {
+    display: inline-block;
+    background: rgba(74,158,255,.1); border: 1px solid rgba(74,158,255,.25);
+    color: var(--blue); padding: .3rem .9rem; border-radius: 50px;
+    font-size: .78rem; font-weight: 700; letter-spacing: .1em;
+    text-transform: uppercase; margin-bottom: 1rem;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 900; color: var(--navy); line-height: 1.2;
+    margin-bottom: 1rem;
+  }
+  .section-title em { color: var(--blue); font-style: normal; }
+  .section-sub { font-size: 1.05rem; color: var(--gray); line-height: 1.7; max-width: 560px; }
+  .text-center { text-align: center; }
+  .text-center .section-sub { margin: 0 auto; }
+
+  /* ── TRUST BAR ── */
+  #trust {
+    background: var(--navy); padding: 2rem 5%;
+    display: flex; align-items: center; justify-content: center;
+    gap: 3rem; flex-wrap: wrap;
+  }
+  .trust-item { display: flex; align-items: center; gap: .7rem; color: rgba(255,255,255,.6); font-size: .9rem; }
+  .trust-item .icon { font-size: 1.4rem; }
+
+  /* ── SERVICES ── */
+  #services { background: var(--white); }
+  .services-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem; margin-top: 3rem;
+  }
+  .service-card {
+    background: var(--cream); border-radius: 20px; padding: 2rem;
+    border: 2px solid transparent; transition: all .3s; position: relative; overflow: hidden;
+  }
+  .service-card::before {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(74,158,255,.05), rgba(0,212,200,.05));
+    opacity: 0; transition: opacity .3s;
+  }
+  .service-card:hover { border-color: var(--sky); transform: translateY(-6px); box-shadow: 0 20px 50px rgba(74,158,255,.12); }
+  .service-card:hover::before { opacity: 1; }
+  .service-icon {
+    width: 60px; height: 60px; border-radius: 16px; margin-bottom: 1.3rem;
+    background: linear-gradient(135deg, var(--sky), var(--aqua));
+    display: flex; align-items: center; justify-content: center; font-size: 1.8rem;
+  }
+  .service-card h3 { font-family: 'Playfair Display', serif; font-size: 1.3rem; margin-bottom: .6rem; color: var(--navy); }
+  .service-card p { color: var(--gray); font-size: .95rem; line-height: 1.65; margin-bottom: 1rem; }
+  .service-price { font-weight: 700; color: var(--blue); font-size: 1rem; }
+  .service-features { list-style: none; margin-top: .8rem; }
+  .service-features li { color: var(--gray); font-size: .88rem; padding: .25rem 0; display: flex; align-items: center; gap: .5rem; }
+  .service-features li::before { content: '✓'; color: var(--aqua); font-weight: 700; }
+
+  /* ── ABOUT ── */
+  #about { background: var(--light); }
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; margin-top: 3rem; }
+  .about-image-wrap { position: relative; }
+  .about-image-wrap img { width: 100%; border-radius: 20px; object-fit: cover; height: 450px; box-shadow: 20px 20px 60px rgba(10,22,40,.15); }
+  .about-badge-float {
+    position: absolute; bottom: -20px; right: -20px;
+    background: var(--navy); color: white; border-radius: 16px;
+    padding: 1.2rem 1.5rem; text-align: center;
+    box-shadow: 0 15px 40px rgba(0,0,0,.2);
+  }
+  .about-badge-float .num { font-family:'Playfair Display',serif; font-size: 2.5rem; color: var(--aqua); }
+  .about-badge-float small { font-size: .8rem; color: rgba(255,255,255,.6); }
+  .about-features { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1.5rem 0; }
+  .about-feat { display: flex; align-items: flex-start; gap: .7rem; }
+  .feat-icon { width: 36px; height: 36px; border-radius: 10px; background: linear-gradient(135deg,var(--sky),var(--aqua)); display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0; }
+  .about-feat h4 { font-size: .95rem; color: var(--navy); margin-bottom: .2rem; }
+  .about-feat p { font-size: .85rem; color: var(--gray); }
+
+  /* ── PROCESS ── */
+  #process { background: var(--white); }
+  .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; margin-top: 3rem; position: relative; }
+  .steps::before {
+    content: ''; position: absolute; top: 35px; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, var(--sky), var(--aqua));
+    z-index: 0;
+  }
+  .step { text-align: center; position: relative; z-index: 1; }
+  .step-num {
+    width: 70px; height: 70px; border-radius: 50%; margin: 0 auto 1.2rem;
+    background: linear-gradient(135deg, var(--sky), var(--aqua));
+    color: white; font-family: 'Playfair Display', serif;
+    font-size: 1.6rem; font-weight: 900;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 8px 25px rgba(74,158,255,.35);
+  }
+  .step h3 { font-size: 1.1rem; color: var(--navy); margin-bottom: .5rem; }
+  .step p { font-size: .9rem; color: var(--gray); line-height: 1.6; }
+
+  /* ── TESTIMONIALS ── */
+  #testimonials { background: var(--navy); overflow: hidden; }
+  #testimonials .section-tag { background: rgba(0,212,200,.12); border-color: rgba(0,212,200,.3); color: var(--aqua); }
+  #testimonials .section-title { color: var(--white); }
+  #testimonials .section-sub { color: rgba(255,255,255,.55); }
+
+  .reviews-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; margin-top: 3rem; }
+  .review-card {
+    background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1);
+    border-radius: 20px; padding: 2rem;
+    transition: all .3s; position: relative;
+  }
+  .review-card:hover { background: rgba(255,255,255,.09); transform: translateY(-4px); }
+  .review-quote { font-size: 3rem; color: var(--aqua); line-height: 1; margin-bottom: .5rem; opacity: .5; }
+  .review-text { color: rgba(255,255,255,.8); font-size: .97rem; line-height: 1.7; margin-bottom: 1.5rem; }
+  .review-footer { display: flex; align-items: center; gap: 1rem; }
+  .review-avatar {
+    width: 48px; height: 48px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--sky), var(--aqua));
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; color: white; font-size: 1.1rem;
+  }
+  .review-name { font-weight: 700; color: white; font-size: .95rem; }
+  .review-location { font-size: .8rem; color: rgba(255,255,255,.4); }
+  .review-stars { color: var(--gold); font-size: .95rem; margin-top: .2rem; }
+  .verified-badge { font-size: .75rem; color: var(--aqua); font-weight: 600; margin-top: .15rem; }
+
+  /* ── PRICING ── */
+  #pricing { background: var(--light); }
+  .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-top: 3rem; }
+  .pricing-card {
+    background: var(--white); border-radius: 24px; padding: 2.5rem;
+    border: 2px solid var(--light); transition: all .3s; position: relative; overflow: hidden;
+  }
+  .pricing-card.popular {
+    background: var(--navy);
+    border-color: var(--sky);
+    transform: scale(1.04);
+  }
+  .popular-label {
+    position: absolute; top: 0; right: 0;
+    background: linear-gradient(135deg, var(--sky), var(--aqua));
+    color: white; font-size: .75rem; font-weight: 700;
+    padding: .4rem 1.2rem; border-radius: 0 24px 0 16px;
+    letter-spacing: .05em;
+  }
+  .pricing-card:hover:not(.popular) { border-color: var(--sky); box-shadow: 0 20px 50px rgba(74,158,255,.1); }
+  .plan-name { font-size: .85rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--blue); margin-bottom: .5rem; }
+  .pricing-card.popular .plan-name { color: var(--aqua); }
+  .plan-price { font-family: 'Playfair Display', serif; font-size: 3rem; font-weight: 900; color: var(--navy); margin-bottom: .2rem; }
+  .pricing-card.popular .plan-price { color: var(--white); }
+  .plan-period { font-size: .85rem; color: var(--gray); margin-bottom: 1.5rem; }
+  .pricing-card.popular .plan-period { color: rgba(255,255,255,.5); }
+  .plan-features { list-style: none; margin-bottom: 2rem; }
+  .plan-features li { padding: .5rem 0; font-size: .93rem; color: var(--gray); display: flex; gap: .6rem; align-items: center; border-bottom: 1px solid var(--light); }
+  .pricing-card.popular .plan-features li { color: rgba(255,255,255,.7); border-bottom-color: rgba(255,255,255,.08); }
+  .plan-features li::before { content: '✓'; color: var(--aqua); font-weight: 700; flex-shrink: 0; }
+  .btn-plan {
+    width: 100%; padding: .9rem; border-radius: 50px;
+    font-weight: 700; font-size: .95rem; cursor: pointer;
+    border: 2px solid var(--sky); background: transparent;
+    color: var(--blue); transition: all .3s; text-align: center;
+    text-decoration: none; display: block;
+  }
+  .btn-plan:hover { background: var(--sky); color: white; }
+  .pricing-card.popular .btn-plan { background: linear-gradient(135deg,var(--sky),var(--aqua)); color: white; border-color: transparent; box-shadow: 0 8px 25px rgba(74,158,255,.4); }
+
+  /* ── CONTACT ── */
+  #contact { background: var(--white); }
+  .contact-grid { display: grid; grid-template-columns: 1fr 1.4fr; gap: 4rem; margin-top: 3rem; align-items: start; }
+  .contact-info h3 { font-family:'Playfair Display',serif; font-size: 1.6rem; margin-bottom: 1rem; color: var(--navy); }
+  .contact-info p { color: var(--gray); line-height: 1.7; margin-bottom: 2rem; }
+  .contact-item { display: flex; gap: 1rem; align-items: flex-start; margin-bottom: 1.3rem; }
+  .c-icon {
+    width: 44px; height: 44px; border-radius: 12px; flex-shrink: 0;
+    background: var(--light); display: flex; align-items: center; justify-content: center; font-size: 1.2rem;
+  }
+  .c-label { font-size: .8rem; text-transform: uppercase; letter-spacing: .08em; color: var(--gray); margin-bottom: .2rem; }
+  .c-value { font-weight: 600; color: var(--navy); }
+  .hours-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .5rem; margin-top: 1.5rem; }
+  .hour-row { display: flex; justify-content: space-between; font-size: .88rem; padding: .4rem 0; border-bottom: 1px solid var(--light); }
+  .hour-row span:first-child { color: var(--gray); }
+  .hour-row span:last-child { font-weight: 600; color: var(--navy); }
+
+  /* FORM */
+  .contact-form { background: var(--cream); border-radius: 24px; padding: 2.5rem; }
+  .contact-form h3 { font-family:'Playfair Display',serif; font-size: 1.4rem; margin-bottom: 1.5rem; color: var(--navy); }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .form-group { margin-bottom: 1.2rem; }
+  .form-group label { display: block; font-size: .85rem; font-weight: 600; color: var(--navy); margin-bottom: .4rem; }
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    width: 100%; padding: .8rem 1rem; border-radius: 12px;
+    border: 2px solid transparent; background: white;
+    font-family: 'DM Sans', sans-serif; font-size: .95rem; color: var(--navy);
+    transition: border-color .3s, box-shadow .3s; outline: none;
+  }
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus {
+    border-color: var(--sky); box-shadow: 0 0 0 4px rgba(74,158,255,.1);
+  }
+  .form-group textarea { resize: vertical; min-height: 110px; }
+  .btn-submit {
+    width: 100%; padding: 1rem; border-radius: 50px;
+    background: linear-gradient(135deg, var(--sky), var(--aqua));
+    color: white; font-size: 1rem; font-weight: 700;
+    border: none; cursor: pointer; transition: all .3s;
+    box-shadow: 0 8px 25px rgba(74,158,255,.35);
+    display: flex; align-items: center; justify-content: center; gap: .6rem;
+  }
+  .btn-submit:hover { transform: translateY(-2px); box-shadow: 0 12px 35px rgba(74,158,255,.45); }
+  .form-success {
+    display: none; background: linear-gradient(135deg,rgba(0,212,200,.1),rgba(74,158,255,.1));
+    border: 1px solid var(--aqua); border-radius: 12px; padding: 1rem 1.2rem;
+    color: var(--blue); font-weight: 600; text-align: center; margin-top: 1rem;
+  }
+  .form-error { display: none; background: #fff0f0; border: 1px solid #f88; border-radius: 12px; padding: 1rem; color: #c00; margin-top: 1rem; }
+
+  /* ── FAQ ── */
+  #faq { background: var(--light); }
+  .faq-list { max-width: 760px; margin: 3rem auto 0; }
+  .faq-item { background: white; border-radius: 16px; margin-bottom: 1rem; overflow: hidden; border: 2px solid transparent; transition: border-color .3s; }
+  .faq-item.open { border-color: var(--sky); }
+  .faq-q { padding: 1.3rem 1.5rem; font-weight: 600; color: var(--navy); cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-size: .97rem; }
+  .faq-arrow { font-size: 1.2rem; transition: transform .3s; color: var(--blue); }
+  .faq-item.open .faq-arrow { transform: rotate(180deg); }
+  .faq-a { max-height: 0; overflow: hidden; transition: max-height .4s ease, padding .3s; }
+  .faq-item.open .faq-a { max-height: 300px; }
+  .faq-a p { padding: 0 1.5rem 1.3rem; color: var(--gray); line-height: 1.7; font-size: .93rem; }
+
+  /* ── ZONES ── */
+  #zones { background: var(--white); }
+  .zones-grid { display: flex; flex-wrap: wrap; gap: .8rem; margin-top: 2.5rem; }
+  .zone-pill {
+    background: var(--light); border: 2px solid transparent; border-radius: 50px;
+    padding: .5rem 1.3rem; font-size: .9rem; font-weight: 600; color: var(--navy);
+    transition: all .3s; display: flex; align-items: center; gap: .4rem;
+  }
+  .zone-pill:hover { border-color: var(--sky); color: var(--blue); background: rgba(74,158,255,.06); }
+  .zone-pill.main { background: var(--navy); color: white; border-color: var(--sky); }
+
+  /* ── FOOTER ── */
+  footer { background: var(--navy); color: rgba(255,255,255,.6); padding: 4rem 5% 2rem; }
+  .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1.2fr; gap: 3rem; margin-bottom: 3rem; }
+  .footer-brand .nav-logo { margin-bottom: 1rem; }
+  .footer-brand p { font-size: .9rem; line-height: 1.7; }
+  .footer-col h4 { color: white; font-family: 'Playfair Display', serif; font-size: 1.1rem; margin-bottom: 1rem; }
+  .footer-col ul { list-style: none; }
+  .footer-col ul li { margin-bottom: .5rem; }
+  .footer-col ul li a { color: rgba(255,255,255,.5); text-decoration: none; font-size: .9rem; transition: color .3s; }
+  .footer-col ul li a:hover { color: var(--aqua); }
+  .footer-social { display: flex; gap: .8rem; margin-top: 1.2rem; }
+  .social-btn {
+    width: 38px; height: 38px; border-radius: 10px; border: 1px solid rgba(255,255,255,.15);
+    display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,.5);
+    text-decoration: none; font-size: 1rem; transition: all .3s;
+  }
+  .social-btn:hover { border-color: var(--aqua); color: var(--aqua); }
+  .footer-bottom { border-top: 1px solid rgba(255,255,255,.08); padding-top: 1.5rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: gap; font-size: .85rem; }
+  .footer-bottom-links { display: flex; gap: 1.5rem; }
+  .footer-bottom-links a { color: rgba(255,255,255,.4); text-decoration: none; }
+  .footer-bottom-links a:hover { color: var(--aqua); }
+
+  /* ── SCROLL TO TOP ── */
+  #scrollTop {
+    position: fixed; bottom: 2rem; right: 2rem; z-index: 999;
+    width: 48px; height: 48px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--sky), var(--aqua));
+    color: white; border: none; cursor: pointer; font-size: 1.2rem;
+    box-shadow: 0 8px 25px rgba(74,158,255,.4);
+    opacity: 0; transform: translateY(20px);
+    transition: all .3s; display: flex; align-items: center; justify-content: center;
+  }
+  #scrollTop.visible { opacity: 1; transform: translateY(0); }
+
+  /* ── MOBILE ── */
+  @media(max-width: 900px) {
+    .hero-image { display: none; }
+    .about-grid { grid-template-columns: 1fr; }
+    .contact-grid { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+    .steps::before { display: none; }
+    .nav-links { display: none; flex-direction: column; position: absolute; top: 100%; left: 0; right: 0; background: var(--navy); padding: 2rem; gap: 1.2rem; }
+    .nav-links.open { display: flex; }
+    .hamburger { display: flex; }
+    .pricing-card.popular { transform: none; }
+    .form-row { grid-template-columns: 1fr; }
+  }
+  @media(max-width: 600px) {
+    .footer-grid { grid-template-columns: 1fr; }
+    .hero-stats { gap: 1.5rem; }
+    section { padding: 4rem 5%; }
+  }
+</style>
 </head>
 <body>
 
-    <div class="container">
-        <h1>Abdou Fatah</h1>
-        <h2>Ingénieur d’État en Informatique</h2>
+<!-- NAVBAR -->
+<nav id="navbar">
+  <a href="#hero" class="nav-logo">
+    <div class="logo-icon">🧹</div>
+    Propre<span>Net</span>
+  </a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#about">À Propos</a></li>
+    <li><a href="#pricing">Tarifs</a></li>
+    <li><a href="#testimonials">Avis</a></li>
+    <li><a href="#contact" class="nav-cta">Devis Gratuit</a></li>
+  </ul>
+  <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
 
-        <p class="subtitle">
-            Développeur Java / JavaFX – Administrateur Réseau – Systèmes d’Information
-        </p>
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bubbles">
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+  </div>
+  <div class="grid-lines"></div>
 
-        <div class="info">
-            <p>📍 Sidi Ali – Mostaganem, Algérie</p>
-            <p>📧 <a href="mailto:sakhi.abderrahmen@outlook.fr">sakhi.abderrahmen@outlook.fr</a></p>
-            <p>📞 +213 663 57 26 82</p>
+  <div class="hero-content">
+    <div class="hero-badge">⭐ Service N°1 à Tours</div>
+    <h1 class="hero-title">
+      Un logement<br><em>impeccable</em>,<br>chaque fois.
+    </h1>
+    <p class="hero-subtitle">
+      PropreNet Tours – votre partenaire de confiance pour un nettoyage professionnel et écologique à Tours et ses alentours. Interventions rapides, résultats garantis.
+    </p>
+    <div class="hero-buttons">
+      <a href="#contact" class="btn-primary">✨ Devis Gratuit</a>
+      <a href="tel:+33247000000" class="btn-secondary">📞 02 47 00 00 00</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat">
+        <div class="stat-num">800+</div>
+        <div class="stat-label">Clients satisfaits</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">12</div>
+        <div class="stat-label">Ans d'expérience</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">4.9★</div>
+        <div class="stat-label">Note moyenne</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-image">
+    <img src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=700&q=80" alt="Équipe de nettoyage professionnelle">
+    <div class="hero-image-badge">
+      <div>
+        <div class="badge-stars">★★★★★</div>
+        <div class="badge-text">
+          <strong>Certifié Qualité</strong>
+          <small>Norme NF Services</small>
         </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-        <p class="description">
-            Ce site présente mon profil professionnel.  
-            Mon CV complet est disponible sous forme d’une application Desktop
-            développée avec <strong>JavaFX</strong>, intégrant mes projets,
-            mon expérience et mes compétences techniques.
-        </p>
+<!-- TRUST BAR -->
+<div id="trust">
+  <div class="trust-item"><span class="icon">🌿</span> Produits écologiques certifiés</div>
+  <div class="trust-item"><span class="icon">🛡️</span> Assurance responsabilité civile</div>
+  <div class="trust-item"><span class="icon">⚡</span> Intervention sous 24h</div>
+  <div class="trust-item"><span class="icon">🔑</span> Gestion des clés sécurisée</div>
+  <div class="trust-item"><span class="icon">💚</span> Équipe formée & vérifiée</div>
+</div>
 
-        <a class="download-btn" href="CV-JavaFX.zip" download>
-            ⬇ Télécharger le CV (Application JavaFX)
-        </a>
-
-        <p class="note">
-            ⚠ Le CV est une application interactive (Windows / Java requis)
-        </p>
+<!-- SERVICES -->
+<section id="services">
+  <div class="text-center">
+    <span class="section-tag">🧹 Nos Services</span>
+    <h2 class="section-title">Tout ce dont vous avez <em>besoin</em></h2>
+    <p class="section-sub">Des solutions de nettoyage adaptées à chaque besoin, réalisées par des professionnels certifiés avec des produits respectueux de l'environnement.</p>
+  </div>
+  <div class="services-grid">
+    <div class="service-card">
+      <div class="service-icon">🏠</div>
+      <h3>Nettoyage Résidentiel</h3>
+      <p>Nettoyage complet de votre maison ou appartement, du sol au plafond, avec une attention particulière aux détails.</p>
+      <ul class="service-features">
+        <li>Cuisine et salle de bain en profondeur</li>
+        <li>Aspiration et lavage des sols</li>
+        <li>Dépoussiérage intégral</li>
+        <li>Nettoyage des vitres intérieures</li>
+      </ul>
+      <div class="service-price">À partir de 45€ / intervention</div>
     </div>
 
+    <div class="service-card">
+      <div class="service-icon">🏢</div>
+      <h3>Nettoyage Commercial</h3>
+      <p>Entretien régulier de vos bureaux, commerces et espaces professionnels pour un environnement de travail sain.</p>
+      <ul class="service-features">
+        <li>Entretien quotidien ou hebdomadaire</li>
+        <li>Sanitaires et espaces communs</li>
+        <li>Salles de réunion et open-spaces</li>
+        <li>Intervention en dehors des heures de bureau</li>
+      </ul>
+      <div class="service-price">À partir de 80€ / visite</div>
+    </div>
+
+    <div class="service-card">
+      <div class="service-icon">🚪</div>
+      <h3>Fin de Bail / Déménagement</h3>
+      <p>Remise en état complète pour récupérer votre caution à 100%. Nettoyage approfondi garanti.</p>
+      <ul class="service-features">
+        <li>Nettoyage certifié état des lieux</li>
+        <li>Four, réfrigérateur, hotte inclus</li>
+        <li>Attestation de nettoyage fournie</li>
+        <li>Satisfaction garantie ou reprise</li>
+      </ul>
+      <div class="service-price">À partir de 120€ / logement</div>
+    </div>
+
+    <div class="service-card">
+      <div class="service-icon">🛋️</div>
+      <h3>Nettoyage Canapés & Tissus</h3>
+      <p>Extraction en profondeur pour vos canapés, fauteuils, matelas et moquettes. Résultats visibles garantis.</p>
+      <ul class="service-features">
+        <li>Extraction vapeur haute pression</li>
+        <li>Anti-acariens et désinfection</li>
+        <li>Déodorant et protecteur inclus</li>
+        <li>Séchage rapide 2–4h</li>
+      </ul>
+      <div class="service-price">À partir de 60€ / pièce</div>
+    </div>
+
+    <div class="service-card">
+      <div class="service-icon">🏗️</div>
+      <h3>Nettoyage Après Travaux</h3>
+      <p>Remise en état totale après rénovation, construction ou sinistre. Poussières, résidus et déchets éliminés.</p>
+      <ul class="service-features">
+        <li>Élimination des poussières de chantier</li>
+        <li>Nettoyage des traces de peinture</li>
+        <li>Lustrage des surfaces neuves</li>
+        <li>Évacuation des déchets légers</li>
+      </ul>
+      <div class="service-price">Sur devis personnalisé</div>
+    </div>
+
+    <div class="service-card">
+      <div class="service-icon">🌿</div>
+      <h3>Entretien Espaces Verts</h3>
+      <p>Tonte, taille, ramassage des feuilles et entretien de votre jardin pour un extérieur toujours impeccable.</p>
+      <ul class="service-features">
+        <li>Tonte de pelouse</li>
+        <li>Taille haies et arbustes</li>
+        <li>Désherbage et traitement</li>
+        <li>Nettoyage terrasses et allées</li>
+      </ul>
+      <div class="service-price">À partir de 35€ / heure</div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-grid">
+    <div class="about-image-wrap">
+      <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=700&q=80" alt="Notre équipe à Tours">
+      <div class="about-badge-float">
+        <div class="num">12</div>
+        <small>Années d'expertise<br>à Tours</small>
+      </div>
+    </div>
+    <div>
+      <span class="section-tag">🏆 À Propos</span>
+      <h2 class="section-title">Nous sommes <em>PropreNet</em></h2>
+      <p class="section-sub" style="margin-bottom:1.5rem;">Fondée en 2012 à Tours, PropreNet est votre référence locale pour un nettoyage professionnel, fiable et respectueux de l'environnement. Notre équipe de 25 experts certifiés intervient dans toute l'agglomération tourangelle.</p>
+      <div class="about-features">
+        <div class="about-feat">
+          <div class="feat-icon">🌿</div>
+          <div>
+            <h4>100% Écologique</h4>
+            <p>Produits biodégradables certifiés</p>
+          </div>
+        </div>
+        <div class="about-feat">
+          <div class="feat-icon">🛡️</div>
+          <div>
+            <h4>Assurés & Garantis</h4>
+            <p>RC Pro 5 millions d'euros</p>
+          </div>
+        </div>
+        <div class="about-feat">
+          <div class="feat-icon">⚡</div>
+          <div>
+            <h4>Réactivité 24h</h4>
+            <p>Intervention express disponible</p>
+          </div>
+        </div>
+        <div class="about-feat">
+          <div class="feat-icon">⭐</div>
+          <div>
+            <h4>Qualité Certifiée</h4>
+            <p>Norme NF Services Propreté</p>
+          </div>
+        </div>
+      </div>
+      <a href="#contact" class="btn-primary" style="display:inline-flex;margin-top:1rem;">Nous contacter →</a>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section id="process" style="background:var(--white)">
+  <div class="text-center">
+    <span class="section-tag">📋 Comment ça marche</span>
+    <h2 class="section-title">Simple, <em>rapide</em> et efficace</h2>
+    <p class="section-sub">En 4 étapes seulement, votre espace devient impeccable.</p>
+  </div>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <h3>Demande en ligne</h3>
+      <p>Remplissez notre formulaire ou appelez-nous. Réponse dans l'heure.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <h3>Devis gratuit</h3>
+      <p>Nous estimons le coût selon votre surface et vos besoins spécifiques.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <h3>Intervention</h3>
+      <p>Notre équipe intervient à l'heure convenue avec tout le matériel nécessaire.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <h3>Satisfaction garantie</h3>
+      <p>Vous vérifiez le résultat. Non satisfait ? Nous revenons gratuitement.</p>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <div class="text-center">
+    <span class="section-tag">⭐ Avis Clients</span>
+    <h2 class="section-title" style="color:white;">Ils nous font <em style="color:var(--aqua)">confiance</em></h2>
+    <p class="section-sub">Plus de 800 clients satisfaits à Tours et ses environs. Découvrez leurs témoignages authentiques.</p>
+  </div>
+  <div class="reviews-grid">
+    <div class="review-card">
+      <div class="review-quote">"</div>
+      <p class="review-text">Service exceptionnel ! L'équipe est arrivée à l'heure, très professionnelle et sympathique. Mon appartement n'a jamais été aussi propre. Je recommande PropreNet sans hésitation !</p>
+      <div class="review-footer">
+        <div class="review-avatar">M</div>
+        <div>
+          <div class="review-name">Marie Dupont</div>
+          <div class="review-location">📍 Tours Centre</div>
+          <div class="review-stars">★★★★★</div>
+          <div class="verified-badge">✓ Avis vérifié Google</div>
+        </div>
+      </div>
+    </div>
+    <div class="review-card">
+      <div class="review-quote">"</div>
+      <p class="review-text">Nettoyage fin de bail impeccable. J'ai récupéré ma caution en totalité ! Le rapport qualité-prix est excellent et l'équipe est vraiment consciencieuse. Bravo PropreNet !</p>
+      <div class="review-footer">
+        <div class="review-avatar">T</div>
+        <div>
+          <div class="review-name">Thomas Leroi</div>
+          <div class="review-location">📍 Saint-Cyr-sur-Loire</div>
+          <div class="review-stars">★★★★★</div>
+          <div class="verified-badge">✓ Avis vérifié Google</div>
+        </div>
+      </div>
+    </div>
+    <div class="review-card">
+      <div class="review-quote">"</div>
+      <p class="review-text">J'utilise PropreNet pour mes bureaux depuis 2 ans. Ponctualité, discrétion et qualité irréprochable. Les produits écologiques utilisés sont un vrai plus pour nos employés.</p>
+      <div class="review-footer">
+        <div class="review-avatar">S</div>
+        <div>
+          <div class="review-name">Sophie Marchand</div>
+          <div class="review-location">📍 La Riche – Bureau</div>
+          <div class="review-stars">★★★★★</div>
+          <div class="verified-badge">✓ Avis vérifié Google</div>
+        </div>
+      </div>
+    </div>
+    <div class="review-card">
+      <div class="review-quote">"</div>
+      <p class="review-text">Intervention après travaux de rénovation. Résultat bluffant ! En quelques heures, tout était propre comme un sou neuf. Très content du service, je recommande vivement.</p>
+      <div class="review-footer">
+        <div class="review-avatar">J</div>
+        <div>
+          <div class="review-name">Jean-Philippe Morel</div>
+          <div class="review-location">📍 Joué-lès-Tours</div>
+          <div class="review-stars">★★★★★</div>
+          <div class="verified-badge">✓ Avis vérifié Google</div>
+        </div>
+      </div>
+    </div>
+    <div class="review-card">
+      <div class="review-quote">"</div>
+      <p class="review-text">Mon canapé en velours semblait perdu. Après l'extraction vapeur de PropreNet, il est comme neuf ! Un service que je n'aurais pas cru possible. Je suis agréablement surprise.</p>
+      <div class="review-footer">
+        <div class="review-avatar">C</div>
+        <div>
+          <div class="review-name">Camille Bernard</div>
+          <div class="review-location">📍 Chambray-lès-Tours</div>
+          <div class="review-stars">★★★★★</div>
+          <div class="verified-badge">✓ Avis vérifié Google</div>
+        </div>
+      </div>
+    </div>
+    <div class="review-card">
+      <div class="review-quote">"</div>
+      <p class="review-text">Service rapide et professionnel. J'ai contacté PropreNet un vendredi matin, ils étaient chez moi l'après-midi ! Tarifs très honnêtes et travail soigné. Que demander de plus ?</p>
+      <div class="review-footer">
+        <div class="review-avatar">L</div>
+        <div>
+          <div class="review-name">Laurent Petit</div>
+          <div class="review-location">📍 Tours Nord</div>
+          <div class="review-stars">★★★★★</div>
+          <div class="verified-badge">✓ Avis vérifié Google</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing">
+  <div class="text-center">
+    <span class="section-tag">💰 Tarifs</span>
+    <h2 class="section-title">Des forfaits <em>transparents</em></h2>
+    <p class="section-sub">Pas de surprise, pas de frais cachés. Des tarifs clairs adaptés à votre budget.</p>
+  </div>
+  <div class="pricing-grid">
+    <div class="pricing-card">
+      <div class="plan-name">Essentiel</div>
+      <div class="plan-price">45€</div>
+      <div class="plan-period">par intervention (jusqu'à 50m²)</div>
+      <ul class="plan-features">
+        <li>Aspiration et lavage des sols</li>
+        <li>Dépoussiérage surfaces</li>
+        <li>Nettoyage salle de bain</li>
+        <li>Nettoyage cuisine (hors four)</li>
+        <li>Poubelles vidées</li>
+        <li>1 passage par semaine</li>
+      </ul>
+      <a href="#contact" class="btn-plan">Choisir ce forfait</a>
+    </div>
+
+    <div class="pricing-card popular">
+      <div class="popular-label">⭐ Le Plus Choisi</div>
+      <div class="plan-name">Premium</div>
+      <div class="plan-price">85€</div>
+      <div class="plan-period">par intervention (jusqu'à 100m²)</div>
+      <ul class="plan-features">
+        <li>Tout le forfait Essentiel</li>
+        <li>Nettoyage four & réfrigérateur</li>
+        <li>Vitres intérieures</li>
+        <li>Détartrage sanitaires</li>
+        <li>Cirage des parquets</li>
+        <li>Passage jusqu'à 2x/semaine</li>
+      </ul>
+      <a href="#contact" class="btn-plan">Choisir ce forfait</a>
+    </div>
+
+    <div class="pricing-card">
+      <div class="plan-name">Entreprise</div>
+      <div class="plan-price">Sur devis</div>
+      <div class="plan-period">adapté à vos locaux professionnels</div>
+      <ul class="plan-features">
+        <li>Audit de vos locaux offert</li>
+        <li>Plan de nettoyage personnalisé</li>
+        <li>Équipe dédiée</li>
+        <li>Intervention hors horaires</li>
+        <li>Rapport mensuel de prestation</li>
+        <li>Tarif préférentiel à l'année</li>
+      </ul>
+      <a href="#contact" class="btn-plan">Demander un devis</a>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="text-center">
+    <span class="section-tag">📬 Contact</span>
+    <h2 class="section-title">Obtenez votre <em>devis gratuit</em></h2>
+    <p class="section-sub">Remplissez le formulaire ou appelez-nous directement. Réponse garantie dans l'heure.</p>
+  </div>
+  <div class="contact-grid">
+    <div class="contact-info">
+      <h3>Parlons de votre projet</h3>
+      <p>Notre équipe est à votre disposition pour répondre à toutes vos questions et établir un devis personnalisé adapté à vos besoins.</p>
+
+      <div class="contact-item">
+        <div class="c-icon">📞</div>
+        <div>
+          <div class="c-label">Téléphone</div>
+          <div class="c-value">02 47 00 00 00</div>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="c-icon">📧</div>
+        <div>
+          <div class="c-label">Email</div>
+          <div class="c-value">contact@proprenet-tours.fr</div>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="c-icon">📍</div>
+        <div>
+          <div class="c-label">Adresse</div>
+          <div class="c-value">12 Rue du Commerce, 37000 Tours</div>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="c-icon">🚗</div>
+        <div>
+          <div class="c-label">Zone d'intervention</div>
+          <div class="c-value">Tours & agglomération (30 km)</div>
+        </div>
+      </div>
+
+      <h4 style="margin:1.5rem 0 .8rem;font-family:'Playfair Display',serif;color:var(--navy)">Horaires d'ouverture</h4>
+      <div class="hours-grid">
+        <div>
+          <div class="hour-row"><span>Lundi – Vendredi</span><span>08h – 19h</span></div>
+          <div class="hour-row"><span>Samedi</span><span>09h – 17h</span></div>
+          <div class="hour-row"><span>Dimanche</span><span>Sur RDV</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="contact-form">
+      <h3>✉️ Demande de Devis Gratuit</h3>
+      <form id="contactForm">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="prenom">Prénom *</label>
+            <input type="text" id="prenom" name="prenom" placeholder="Marie" required>
+          </div>
+          <div class="form-group">
+            <label for="nom">Nom *</label>
+            <input type="text" id="nom" name="nom" placeholder="Dupont" required>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="email">Email *</label>
+            <input type="email" id="email" name="email" placeholder="marie@example.com" required>
+          </div>
+          <div class="form-group">
+            <label for="telephone">Téléphone</label>
+            <input type="tel" id="telephone" name="telephone" placeholder="06 12 34 56 78">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="service">Type de service *</label>
+          <select id="service" name="service" required>
+            <option value="">-- Sélectionnez un service --</option>
+            <option>Nettoyage résidentiel</option>
+            <option>Nettoyage commercial</option>
+            <option>Fin de bail / Déménagement</option>
+            <option>Nettoyage canapés & tissus</option>
+            <option>Nettoyage après travaux</option>
+            <option>Entretien espaces verts</option>
+            <option>Autre demande</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="surface">Surface (m²)</label>
+            <input type="text" id="surface" name="surface" placeholder="Ex : 75 m²">
+          </div>
+          <div class="form-group">
+            <label for="ville">Ville</label>
+            <input type="text" id="ville" name="ville" placeholder="Tours">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="message">Votre message</label>
+          <textarea id="message" name="message" placeholder="Décrivez vos besoins, la fréquence souhaitée, vos disponibilités..."></textarea>
+        </div>
+        <button type="submit" class="btn-submit" id="submitBtn">
+          <span id="btnText">✨ Envoyer ma demande</span>
+          <span id="btnLoader" style="display:none">⏳ Envoi en cours...</span>
+        </button>
+        <div class="form-success" id="formSuccess">
+          🎉 Votre demande a bien été envoyée ! Nous vous répondrons dans l'heure.
+        </div>
+        <div class="form-error" id="formError">
+          ❌ Une erreur est survenue. Merci de réessayer ou de nous appeler directement.
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="text-center">
+    <span class="section-tag">❓ FAQ</span>
+    <h2 class="section-title">Questions <em>fréquentes</em></h2>
+    <p class="section-sub">Tout ce que vous devez savoir avant de faire appel à nos services.</p>
+  </div>
+  <div class="faq-list">
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">Dois-je être présent lors du nettoyage ? <span class="faq-arrow">▾</span></div>
+      <div class="faq-a"><p>Non, votre présence n'est pas obligatoire. Nous proposons un système sécurisé de gestion des clés. Votre domicile est protégé par notre assurance RC Pro pendant toute l'intervention.</p></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">Quels produits utilisez-vous ? <span class="faq-arrow">▾</span></div>
+      <div class="faq-a"><p>Nous utilisons exclusivement des produits biodégradables et certifiés écologiques, sans solvants ni substances toxiques. Idéal pour les familles avec enfants et les personnes allergiques.</p></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">Que se passe-t-il si je ne suis pas satisfait ? <span class="faq-arrow">▾</span></div>
+      <div class="faq-a"><p>Votre satisfaction est notre priorité. Si vous n'êtes pas entièrement satisfait du résultat, nous revenons gratuitement dans les 48h pour corriger les points signalés. C'est notre garantie satisfaction.</p></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">Êtes-vous disponibles le week-end ? <span class="faq-arrow">▾</span></div>
+      <div class="faq-a"><p>Oui ! Nous intervenons le samedi de 9h à 17h et le dimanche sur rendez-vous pour les urgences. Contactez-nous pour vérifier la disponibilité selon votre zone géographique.</p></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">Combien coûte un nettoyage fin de bail ? <span class="faq-arrow">▾</span></div>
+      <div class="faq-a"><p>Le tarif dépend de la superficie et de l'état du logement. À partir de 120€ pour un studio. Nous proposons une attestation de nettoyage officielle et garantissons la restitution de votre caution.</p></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">Intervenez-vous en urgence ? <span class="faq-arrow">▾</span></div>
+      <div class="faq-a"><p>Oui, nous disposons d'une équipe d'intervention rapide disponible sous 24h pour les urgences (sinistre, nettoyage express avant visite, etc.). Appelez directement le 02 47 00 00 00.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ZONES -->
+<section id="zones">
+  <div class="text-center">
+    <span class="section-tag">📍 Zone d'intervention</span>
+    <h2 class="section-title">Nous intervenons dans <em>tout Tours</em></h2>
+    <p class="section-sub">Et dans un rayon de 30 km autour de Tours, dans toute l'Indre-et-Loire.</p>
+  </div>
+  <div class="zones-grid">
+    <div class="zone-pill main">📍 Tours (37000)</div>
+    <div class="zone-pill">Saint-Cyr-sur-Loire</div>
+    <div class="zone-pill">La Riche</div>
+    <div class="zone-pill">Joué-lès-Tours</div>
+    <div class="zone-pill">Chambray-lès-Tours</div>
+    <div class="zone-pill">Saint-Pierre-des-Corps</div>
+    <div class="zone-pill">Saint-Avertin</div>
+    <div class="zone-pill">Fondettes</div>
+    <div class="zone-pill">Rochecorbon</div>
+    <div class="zone-pill">Montlouis-sur-Loire</div>
+    <div class="zone-pill">Amboise</div>
+    <div class="zone-pill">Vouvray</div>
+    <div class="zone-pill">Luynes</div>
+    <div class="zone-pill">Ballan-Miré</div>
+    <div class="zone-pill">Azay-le-Rideau</div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a href="#hero" class="nav-logo" style="margin-bottom:1rem;display:inline-flex;">
+        <div class="logo-icon">🧹</div>
+        Propre<span>Net</span>
+      </a>
+      <p>Votre partenaire de confiance pour un nettoyage professionnel, écologique et irréprochable à Tours depuis 2012.</p>
+      <div class="footer-social">
+        <a href="#" class="social-btn">f</a>
+        <a href="#" class="social-btn">in</a>
+        <a href="#" class="social-btn">📸</a>
+        <a href="#" class="social-btn">▶</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Services</h4>
+      <ul>
+        <li><a href="#services">Nettoyage résidentiel</a></li>
+        <li><a href="#services">Nettoyage commercial</a></li>
+        <li><a href="#services">Fin de bail</a></li>
+        <li><a href="#services">Après travaux</a></li>
+        <li><a href="#services">Canapés & tissus</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Navigation</h4>
+      <ul>
+        <li><a href="#about">À Propos</a></li>
+        <li><a href="#pricing">Tarifs</a></li>
+        <li><a href="#testimonials">Avis clients</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="tel:+33247000000">📞 02 47 00 00 00</a></li>
+        <li><a href="mailto:contact@proprenet-tours.fr">✉️ contact@proprenet-tours.fr</a></li>
+        <li><a href="#">📍 12 Rue du Commerce<br>37000 Tours</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2024 PropreNet Tours – Tous droits réservés</span>
+    <div class="footer-bottom-links">
+      <a href="#">Mentions légales</a>
+      <a href="#">Politique de confidentialité</a>
+      <a href="#">CGV</a>
+    </div>
+  </div>
+</footer>
+
+<!-- SCROLL TOP -->
+<button id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">▲</button>
+
+<script>
+// ── EmailJS Init ──
+// ⚠️ REMPLACEZ ces valeurs par vos vraies clés EmailJS
+const EMAILJS_PUBLIC_KEY  = "VOTRE_CLE_PUBLIQUE";   // ex: "abc123xyz"
+const EMAILJS_SERVICE_ID  = "VOTRE_SERVICE_ID";       // ex: "service_xxxx"
+const EMAILJS_TEMPLATE_ID = "VOTRE_TEMPLATE_ID";      // ex: "template_xxxx"
+
+emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+
+document.getElementById('contactForm').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  const btn     = document.getElementById('submitBtn');
+  const btnText = document.getElementById('btnText');
+  const loader  = document.getElementById('btnLoader');
+  const success = document.getElementById('formSuccess');
+  const error   = document.getElementById('formError');
+
+  btn.disabled = true;
+  btnText.style.display = 'none';
+  loader.style.display  = 'inline';
+  success.style.display = 'none';
+  error.style.display   = 'none';
+
+  const params = {
+    prenom:    document.getElementById('prenom').value,
+    nom:       document.getElementById('nom').value,
+    email:     document.getElementById('email').value,
+    telephone: document.getElementById('telephone').value,
+    service:   document.getElementById('service').value,
+    surface:   document.getElementById('surface').value,
+    ville:     document.getElementById('ville').value,
+    message:   document.getElementById('message').value,
+  };
+
+  try {
+    await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, params);
+    success.style.display = 'block';
+    e.target.reset();
+  } catch(err) {
+    console.error(err);
+    error.style.display = 'block';
+  } finally {
+    btn.disabled = false;
+    btnText.style.display = 'inline';
+    loader.style.display  = 'none';
+  }
+});
+
+// ── Navbar scroll effect ──
+window.addEventListener('scroll', () => {
+  const nav = document.getElementById('navbar');
+  if(window.scrollY > 60) nav.style.padding = '.7rem 5%';
+  else nav.style.padding = '1rem 5%';
+
+  const st = document.getElementById('scrollTop');
+  if(window.scrollY > 400) st.classList.add('visible');
+  else st.classList.remove('visible');
+});
+
+// ── FAQ toggle ──
+function toggleFaq(el) {
+  const item = el.parentElement;
+  document.querySelectorAll('.faq-item').forEach(i => { if(i !== item) i.classList.remove('open'); });
+  item.classList.toggle('open');
+}
+
+// ── Mobile menu ──
+function toggleMenu() {
+  document.getElementById('navLinks').classList.toggle('open');
+}
+document.querySelectorAll('.nav-links a').forEach(a => {
+  a.addEventListener('click', () => document.getElementById('navLinks').classList.remove('open'));
+});
+
+// ── Scroll reveal ──
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if(e.isIntersecting) {
+      e.target.style.opacity = '1';
+      e.target.style.transform = 'translateY(0)';
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.service-card, .review-card, .step, .pricing-card, .faq-item').forEach(el => {
+  el.style.opacity = '0';
+  el.style.transform = 'translateY(30px)';
+  el.style.transition = 'opacity .6s ease, transform .6s ease';
+  observer.observe(el);
+});
+</script>
 </body>
 </html>
